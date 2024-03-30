@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportCSVBookRequest;
 use App\Models\Book;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -48,5 +49,10 @@ class BookController extends Controller
         }
 
         return response()->json(['error' => 'File not found'], 400);
+    }
+
+    public function getBooksInfo(): Collection
+    {
+        return Book::all(['title', 'authors', 'publisher', 'year']);
     }
 }
