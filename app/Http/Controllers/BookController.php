@@ -88,7 +88,7 @@ class BookController extends Controller
         return response()->json(['message' => 'Failed to create book'], 500);
     }
 
-    public function destroy(Book $book)
+    public function destroy(Book $book): JsonResponse
     {
         $book->delete();
 
