@@ -20,3 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/importCSVDataToDatabase', [BookController::class, 'importCSVDataToDatabase']);
+
+Route::get('/books-info', [BookController::class, 'getBooksInfo']);
+Route::get('/books', [BookController::class, 'index']);
+Route::post('/books', [BookController::class, 'store']);
+Route::patch('/books/{book}', [BookController::class, 'update']);
+Route::delete('/books/{book}', [BookController::class, 'destroy']);

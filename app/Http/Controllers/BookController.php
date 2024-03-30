@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportCSVBookRequest;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -48,5 +51,47 @@ class BookController extends Controller
         }
 
         return response()->json(['error' => 'File not found'], 400);
+    }
+
+    public function getBooksInfo(): Collection
+    {
+        return Book::all(['title', 'authors', 'publisher', 'year']);
+    }
+
+    public function index(): Collection
+    {
+        return Book::all();
+    }
+
+    public function store(StoreBookRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+        $book = Book::query()->create($validated);
+
+        if ($book) {
+            return response()->json(['message' => 'Book successfully created', 'book' => $book]);
+        }
+
+        return response()->json(['message' => 'Failed to create book'], 500);
+    }
+
+    public function update(UpdateBookRequest $request, Book $book): JsonResponse
+    {
+        $validated = $request->validated();
+        $updated = $book->update($validated);
+        $updatedBook = $book->fresh();
+
+        if ($updated) {
+            return response()->json(['message' => 'Book successfully updated', 'updated book' => $updatedBook]);
+        }
+
+        return response()->json(['message' => 'Failed to create book'], 500);
+    }
+
+    public function destroy(Book $book): JsonResponse
+    {
+        $book->delete();
+
+        return response()->json(['message' => 'Book successfully deleted']);
     }
 }
