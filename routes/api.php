@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/importCSVDataToDatabase', [BookController::class, 'importCSVDataToDatabase']);
+
+Route::get('/books-info', [BookController::class, 'getBooksInfo']);
