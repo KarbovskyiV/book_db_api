@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('genre');
             $table->text('description')->nullable();
-            $table->integer('edition')->nullable();
+            $table->string('edition')->nullable();
             $table->string('publisher')->nullable();
             $table->date('year')->nullable();
             $table->string('format')->nullable()->comment('Type of book cover');
-            $table->integer('pages')->nullable();
+            $table->string('pages')->nullable();
             $table->string('country')->nullable();
             $table->string('ISBN')->nullable();
             $table->timestamps();
