@@ -55,4 +55,9 @@ class BookController extends Controller
     {
         return Book::all(['title', 'authors', 'publisher', 'year']);
     }
+
+    public function index(): Collection
+    {
+        return Book::all();
+    }
 }
