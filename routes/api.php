@@ -24,3 +24,4 @@ Route::post('/importCSVDataToDatabase', [BookController::class, 'importCSVDataTo
 Route::get('/books-info', [BookController::class, 'getBooksInfo']);
 Route::get('/books', [BookController::class, 'index']);
 Route::post('/books', [BookController::class, 'store']);
+Route::patch('/books/{book}', [BookController::class, 'update']);
