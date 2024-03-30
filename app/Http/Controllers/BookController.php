@@ -68,7 +68,7 @@ class BookController extends Controller
         $book = Book::query()->create($validated);
 
         if ($book) {
-            return response()->json(['message' => 'Book successfully created']);
+            return response()->json(['message' => 'Book successfully created', 'book' => $book]);
         }
 
         return response()->json(['message' => 'Failed to create book'], 500);
