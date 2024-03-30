@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportCSVBookRequest;
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -59,5 +60,17 @@ class BookController extends Controller
     public function index(): Collection
     {
         return Book::all();
+    }
+
+    public function store(StoreBookRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+        $book = Book::query()->create($validated);
+
+        if ($book) {
+            return response()->json(['message' => 'Book successfully created']);
+        }
+
+        return response()->json(['message' => 'Failed to create book'], 500);
     }
 }
