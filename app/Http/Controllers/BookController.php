@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportCSVBookRequest;
 use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -69,6 +70,19 @@ class BookController extends Controller
 
         if ($book) {
             return response()->json(['message' => 'Book successfully created', 'book' => $book]);
+        }
+
+        return response()->json(['message' => 'Failed to create book'], 500);
+    }
+
+    public function update(UpdateBookRequest $request, Book $book): JsonResponse
+    {
+        $validated = $request->validated();
+        $updated = $book->update($validated);
+        $updatedBook = $book->fresh();
+
+        if ($updated) {
+            return response()->json(['message' => 'Book successfully updated', 'updated book' => $updatedBook]);
         }
 
         return response()->json(['message' => 'Failed to create book'], 500);
